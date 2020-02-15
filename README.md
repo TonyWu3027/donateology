@@ -1,6 +1,33 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Donateology
 
-## Available Scripts
+A de-centralised P2P donation platform on blockchain that intelligently distribute resources on demand, a hackathon project for CovHack2020.
+
+## Contributors
+
+*Zhaoxuan "Tony" Wu*
+
+*Shirui "Eric" Lyu*
+
+*Xingyue "Scott" Huang*
+
+*Leo Unoki*
+
+*Dylan Hoi*
+
+*Zhiyuan Liu*
+
+## Technology
+
+| Component        | Technology                   |
+| ---------------- | ---------------------------- |
+| User Interface   | React, Bootstrap, DOMAIN.com |
+| Smart Contract   | Solidity                     |
+| Backend          | node.js, MongoDB, express    |
+| Machine Learning | Python, Flask, Google Cloud  |
+
+## React: Available Scripts
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
 
