@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
+    "async-waterfall": "^0.1.5",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.4.1",
@@ -19,6 +20,7 @@
     "react-metamask-login-button": "^1.0.18",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
+    "react-web3-provider": "^1.1.2",
     "recharts": "^2.0.0-beta.1",
     "web3": "^1.2.6"
   },
