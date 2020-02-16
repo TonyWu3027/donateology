@@ -3,9 +3,22 @@ import {Modal, Button, Form} from 'react-bootstrap';
 import axios from 'axios';
 import MetaMaskButton from '../metamask/MetaMaskButton';
 import MetaMaskContext from "../metamask/metamask";
+import SendEther from '../metamask/SendEther'
+import Web3 from 'web3';
 
 
 
+
+//init
+let {web3} = window;
+const target_copy = Object.assign({}, web3);
+web3 = new Web3(target_copy.currentProvider);
+let url;
+(async () => {
+  let senders = await web3.eth.getAccounts();
+let sender = senders[0];
+let contract = new web3.eth.Contract(abi, address)
+})()
 
 class EventDesc extends Component {
   constructor(){
@@ -23,73 +36,6 @@ class EventDesc extends Component {
       this.handleChange = this.handleChange.bind(this);
     }
 
-    /*
-  async componentDidMount(){
-
-    //address and abi already loaded
-
-    const initContract = async () => {
-        contract = new web3.eth.Contract(abi, address);
-        window.methods = contract.methods;
-        window.contract = contract;
-        window.sender = web3.eth.currentProvider.selectedAddress;
-    };
-
-    const sendEther = async (receiver, amount) => {
-        let receipt = await web3.eth.sendTransaction({
-            from: sender,
-            to: receiver,
-            gasPrice: "120000000000",
-            value: web3.utils.toWei(amount, 'ether')
-        }).on('receipt', r => {
-            console.log(r);
-        }).on('error', console.error);
-        let url = "https://ropsten.etherscan.io/tx/" + receipt.transactionHash;
-        return Promise.resolve(url);
-    };
-
-    const updateHash = async (hash) => {
-        let receipt = await methods.updateHash(hash).send({
-            from: sender,
-            gasPrice: "120000000000",
-            value: 0
-        }).on('receipt', r => {
-            console.log(r);
-        }).on('error', console.error);
-        console.log("recipt!!", receipt.transactionHash);
-        let url = "https://ropsten.etherscan.io/tx/" + receipt.transactionHash;
-        return Promise.resolve(url);
-    };
-
-    const getHash = async () => {
-        let hash = await methods.getHash().call({
-            from: sender
-        });
-        return Promise.resolve(hash);
-    };
-
-    //modern dapp browser
-    if (window.ethereum) {
-        window.web3 = new Web3(ethereum);
-        await ethereum.enable();
-    } else {
-        // Non-dapp browsers…
-        console.log("Ethereum browser not detected.You should consider trying MetaMask!");
-    }
-
-    try {
-        await initContract();
-        // let url1 = await sendEther("0xEB8a5755f2A9BCBe686B3d841405221EF21db855", "0.05");
-        // console.log("SENT", url1);
-        let url2 = await updateHash("HHHHH");
-        console.log("URL2", url2);
-        let hash = await getHash();
-        console.log("HASH", hash);
-
-    } catch (err) {
-        console.log(err);
-    }
-  }*/
 
   handleClose() {
     this.setState({show:false,});
@@ -99,26 +45,63 @@ class EventDesc extends Component {
     this.setState({show:true,});
   }
 
-  makeRequest(e){
+  async makeRequest(e){
     e.preventDefault()
 
 
-    const url = 'http://localhost:5000?amt='+this.state.amt;
-    console.log(url)
+    // const url = 'http://localhost:5000?amt='+this.state.amt;
+    // console.log(url)
+    //
+    // axios.get(url)
+    // .then((res) =>{
+    //   this.setState({response : res.data});
+    //   console.log(this.state.response)
+    // })
+    // .catch(err => {
+    //   console.error(err)
+    // });
 
-    axios.get(url)
-    .then((res) =>{
-      this.setState({response : res.data});
-      console.log(this.state.response)
-    })
-    .catch(err => {
-      console.error(err)
-    });
 
-    for(var i = 1; i <=5 ; i++){
+    sendEther(sender,"0xEB8a5755f2A9BCBe686B3d841405221EF21db855",0.05);
 
-    }
+
   }
+
+
+   async sendEther (sender,receiver, amount){
+      let receipt = await web3.eth.sendTransaction({
+          from: sender,
+          to: receiver,
+          gasPrice: "120000000000",
+          value: web3.utils.toWei(amount, 'ether')
+      }).on('receipt', r => {
+          console.log(r);
+      }).on('error', console.error);
+      let url = "https://ropsten.etherscan.io/tx/" + receipt.transactionHash;
+      return Promise.resolve(url);
+  }
+
+  async updateHash (sender,methods,hash) {
+      let receipt = await methods.updateHash(hash).send({
+          from: sender,
+          gasPrice: "120000000000",
+          value: 0
+      }).on('receipt', r => {
+          console.log(r);
+      }).on('error', console.error);
+      console.log("recipt!!", receipt.transactionHash);
+      let url = "https://ropsten.etherscan.io/tx/" + receipt.transactionHash;
+      return Promise.resolve(url);
+  };
+
+  async getHash (sender,methods) {
+      let hash = await methods.getHash().call({
+          from: sender
+      });
+      return Promise.resolve(hash);
+  };
+
+
 
 
   handleChange (e) {
@@ -135,6 +118,7 @@ class EventDesc extends Component {
   render(){
     return(
       <div>
+        <SendEther></SendEther>
         <div className="card">
           <div className="card-body">
             <h2> Card img</h2>
@@ -187,3 +171,46 @@ class EventDesc extends Component {
 }
 
 export default EventDesc;
+
+let address = "0xf0E0E842Efb2cC5B196461927Ef25471f03D2511";
+let abi = [{
+        "anonymous": false,
+        "inputs": [{
+                "indexed": true,
+                "name": "donator",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "name": "hash",
+                "type": "string"
+            }
+        ],
+        "name": "UpdateHash",
+        "type": "event"
+    },
+    {
+        "constant": false,
+        "inputs": [{
+            "name": "_hash",
+            "type": "string"
+        }],
+        "name": "updateHash",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "getHash",
+        "outputs": [{
+            "name": "",
+            "type": "string"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    }
+];
