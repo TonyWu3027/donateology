@@ -1,14 +1,16 @@
 import React,{Component} from "react";
-import MetaMaskLoginButton from 'react-metamask-login-button';
+import MetaMaskContext from "./metamask/metamask";
 import MetaMaskButton from './metamask/MetaMaskButton'
-
+import SendEther from './metamask/SendEther'
 class Home extends Component {
 
   render(){
     return(
       <div className = "container">
-        <MetaMaskLoginButton />
+              <MetaMaskContext.Provider immediate = {true}>
         <MetaMaskButton />
+        <SendEther/>
+        </MetaMaskContext.Provider >
       </div>
     );
   }

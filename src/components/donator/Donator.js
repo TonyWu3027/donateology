@@ -1,21 +1,27 @@
-import React, {Component} from 'react';
+import React, {Component,useContext} from 'react';
 import EventDesc from './EventDesc';
 import tempEvents from './events.json';
 
+
+
 class Donator extends Component{
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       events : [],
     }
   }
 
-  componentDidMount(){
-    this.setState({events : tempEvents,});
+
+  componentDidMount() {
+    this.setState({events : tempEvents});
+
   }
 
+
   render(){
+
     return(
       <div className = "container">
         <div className = "alert alert-success">
