@@ -20,7 +20,7 @@ let contract = new web3.eth.Contract(abi, address)
 })()
 */
 
-import Home from './Home'
+import Home from './home/Home'
 import Donator from './donator/Donator';
 import Dashboard from './dashboard/Dashboard';
 import Nav from './Nav';

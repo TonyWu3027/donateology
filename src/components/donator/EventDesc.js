@@ -57,7 +57,8 @@ class EventDesc extends Component {
         info : '0',
         amt:'',
         response : {},
-        url : [],
+        url : '',
+        myAccount : '',
 
       }
 
@@ -67,6 +68,9 @@ class EventDesc extends Component {
       this.handleChange = this.handleChange.bind(this);
       this.sendEther = this.sendEther.bind(this);
     }
+
+
+
 
 
 
@@ -81,33 +85,45 @@ class EventDesc extends Component {
   async makeRequest(e){
     e.preventDefault()
 
+    const url = 'http://localhost:5000?amt='+this.state.amt;
 
-    // const url = 'http://localhost:5000?amt='+this.state.amt;
-    // console.log(url)
-    //
-    // axios.get(url)
-    // .then((res) =>{
-    //   this.setState({response : res.data});
-    //   console.log(this.state.response)
-    // })
-    // .catch(err => {
-    //   console.error(err)
-    // });
+    axios.get(url)
+    .then((res) => {
+      console.log(res);
+      res.data.map((item) => {
+      this.sendEther(item.amt,item.addr,(add,url) => {let reqUrl = 'http://localhost:5001/update/sender/'+add+'/recipient/'+item.addr+'/amt/'+item.amt+'/url/'+url
+      axios.get(reqUrl)
+      .then((res) => {
+        console.log(res)
+      })});
+      //writeToDB(item.addr,item.amt,this.state.url)
+
+      // const func = (add,url) => {let reqUrl = 'http://localhost:5001/update/sender/'+add+'/recipient/'+item.addr+'/amt/'+item.amt+'/url/'+url
+      // axios.get(reqUrl)
+      // .then((res) => {
+      //   console.log(res)
+      // })}
+
+    }
+    )})
+    .catch(err => {
+      console.error(err)
+    })
 
 
-    this.sendEther(0.05,"0xEB8a5755f2A9BCBe686B3d841405221EF21db855");
     console.log(this.state.url);
+  };
 
-  }
 
-  sendEther(amount, to) {
+  sendEther(amount, to, callback) {
 		const { web3 } = this.props;
-
 		waterfall([
 			(wcb) => {
 				web3.eth.getAccounts().then((accounts) => {
 					if (accounts && accounts.length >= 1) {
 						wcb(null, accounts[0]);
+            this.setState({myAccount : accounts[0]})
+            console.log(this.state.myAccount)
 					} else {
 						wcb('Unknown account', null);
 					}
@@ -120,30 +136,11 @@ class EventDesc extends Component {
 					value: amount * 1000000000000000000,
 				}, wcb);
 			}, (hash) => {
-        let tempUrl = "https://ropsten.etherscan.io/tx/" + hash;
-        var myUrl = this.state.url;
-
-        myUrl.push(tempUrl);
-        this.setState({url:myUrl});
+        let tempUrl = hash;
+        callback(this.state.myAccount,tempUrl);
+        this.setState({url:tempUrl});
       }])
   }
-
-
-
-
-  /*
-  async sendEther (sender,receiver, amount){
-      let receipt = await this.state.web3.eth.sendTransaction({
-          from: sender,
-          to: receiver,
-          gasPrice: "120000000000",
-          value: this.state.web3.utils.toWei(amount, 'ether')
-      }).on('receipt', r => {
-          console.log(r);
-      }).on('error', console.error);
-      let url = "https://ropsten.etherscan.io/tx/" + receipt.transactionHash;
-      return Promise.resolve(url);
-  } */
 
   async updateHash (sender,methods,hash) {
       let receipt = await methods.updateHash(hash).send({

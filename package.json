@@ -13,7 +13,10 @@
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.4.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "markdown-to-jsx": "^6.11.0",
+    "mongoose": "^5.9.1",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.12.0",
@@ -22,7 +25,9 @@
     "react-scripts": "3.4.0",
     "react-web3-provider": "^1.1.2",
     "recharts": "^2.0.0-beta.1",
-    "web3": "^1.2.6"
+    "time-stamp": "^2.2.0",
+    "web3": "^1.2.6",
+    "weekday": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
