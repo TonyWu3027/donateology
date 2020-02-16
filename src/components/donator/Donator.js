@@ -24,9 +24,6 @@ class Donator extends Component{
 
     return(
       <div className = "container">
-        <div className = "alert alert-success">
-          Donator's Home Page
-        </div>
         <EventDesc />
 
         <div className = "row">
