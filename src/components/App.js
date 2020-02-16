@@ -9,20 +9,19 @@ import {
 
 import Home from './Home'
 import Donator from './donator/Donator';
+import Dashboard from './dashboard/Dashboard';
 import Nav from './Nav';
 
 function App() {
 
   return (
     <div className = "App">
-
-
-
       <Router>
           <Nav />
           <Switch>
             <Route exact path="/" component = {Home} />
             <Route path="/donator" component = {Donator} />
+            <Route path="/dashboard" component = {Dashboard} />
           </Switch>
       </Router>
     </div>

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import EventCard from './EventCard';
 import EventDesc from './EventDesc';
 import tempEvents from './events.json';
 
@@ -14,11 +13,7 @@ class Donator extends Component{
 
   componentDidMount(){
     this.setState({events : tempEvents,});
-    console.log(this.state.events);
   }
-
-
-
 
   render(){
     return(
