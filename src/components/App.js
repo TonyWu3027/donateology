@@ -1,5 +1,8 @@
 import React from 'react';
 import '../css/App.css';
+import MetaMaskContext from "./metamask/metamask";
+
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,14 +19,16 @@ function App() {
 
   return (
     <div className = "App">
-      <Router>
-          <Nav />
-          <Switch>
-            <Route exact path="/" component = {Home} />
-            <Route path="/donator" component = {Donator} />
-            <Route path="/dashboard" component = {Dashboard} />
-          </Switch>
-      </Router>
+      <MetaMaskContext.Provider immediate>
+        <Router>
+            <Nav />
+            <Switch>
+              <Route exact path="/" component = {Home} />
+              <Route path="/donator" component = {Donator} />
+              <Route path="/dashboard" component = {Dashboard} />
+            </Switch>
+        </Router>
+      </MetaMaskContext.Provider>
     </div>
   );
 }
