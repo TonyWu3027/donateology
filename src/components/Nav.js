@@ -15,7 +15,7 @@ class Nav extends Component {
               <a className="nav-link" href="/donator">Donator</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link disabled" href="#" >Dashboard</a>
+              <a className="nav-link" href="/dashboard" >Dashboard</a>
             </li>
             <li className="nav-item">
               <a className="nav-link disabled" href="#" >About</a>
