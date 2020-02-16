@@ -11,6 +11,7 @@ class EventCard extends Component {
         show : false,
         info : '0',
         amt:'',
+        response : {}
       }
 
       this.handleClose = this.handleClose.bind(this);
@@ -29,24 +30,16 @@ class EventCard extends Component {
 
   makeRequest(e){
     e.preventDefault()
-    /*
-    fetch('http://127.0.0.1:5000/' , {
-      method: "POST",
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify({amt:this.state.amt})
+
+
+    const url = 'http://localhost:5000?amt='+this.state.amt;
+    console.log(url)
+
+    axios.get(url)
+    .then((res) =>{
+      this.setState({response : res.data});
+      console.log(this.state.response)
     })
-    .then((result) => result.json())
-    .then((info) => { this.setState({info:info}) })
-    console.log(this.state.info); */
-
-    const myPost = {
-      amt : this.state.amt,
-    }
-
-    axios.post('http://localhost:5000/', myPost)
-    .then((res) => console.log(res))
     .catch(err => {
       console.error(err)
     });
