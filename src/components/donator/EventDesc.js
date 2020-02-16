@@ -3,6 +3,7 @@ import {Modal, Button, Form} from 'react-bootstrap';
 import axios from 'axios';
 import { withWeb3 } from 'react-web3-provider';
 import waterfall from 'async-waterfall';
+import mainPic from'./1.jpg';
 
 
 let address = "0xf0E0E842Efb2cC5B196461927Ef25471f03D2511";
@@ -183,7 +184,7 @@ class EventDesc extends Component {
       <div>
         <div className="card">
           <div className="card-body">
-            <h2> Card img</h2>
+            <img src={mainPic} alt="a picture" style = {{width : '75%',height : '75%'}}/>
             <h4 className="card-title">COVID-19 in Wuhan, China</h4>
             <p className="card-text">Wuhan has experienced a severe coronavirus outbreak since Dec 2019, and the local medical services are under extreme shortage of masks and protective suits and goggles. Every day doctors and nurses are risking their lives to save the people in need. We need you to give us a hand by donating to the hospital for medical consumables.</p>
             <button type="button" className="btn btn-primary" onClick={this.handleShow}>

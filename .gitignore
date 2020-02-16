@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 
+/mongoAPI/node_modules
+
 # testing
 /coverage
 
